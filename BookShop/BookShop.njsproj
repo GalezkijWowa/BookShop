@@ -33,6 +33,10 @@
     <Compile Include="app.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
+    <Compile Include="server\models\author.js" />
+    <Compile Include="server\models\book.js" />
+    <Compile Include="server\models\index.js" />
+    <Compile Include="server\models\page.js" />
     <Content Include=".sequelizerc">
       <SubType>Code</SubType>
     </Content>
