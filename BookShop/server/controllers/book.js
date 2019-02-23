@@ -1,13 +1,20 @@
 ﻿const Book = require('../models').Book;
+const Page = require('../models').Page;
+const Author = require('../models').Author;
 
 module.exports = {
     list(req, res) {
         return Book
             .findAll({
                 include: [{
-                    model: Book,
-                    as: 'Books'
-                }],
+                    model: Page,
+                    as: 'pages'
+                },
+                {
+                    model: Author,
+                    as: 'authors'
+                }
+                ],
             })
             .then((books) => res.status(200).send(books))
             .catch((error) => { res.status(400).send(error); });
@@ -17,9 +24,14 @@ module.exports = {
         return Book
             .findById(req.params.id, {
                 include: [{
-                    model: Book,
-                    as: 'Books'
-                }],
+                    model: Page,
+                    as: 'pages'
+                },
+                {
+                    model: Author,
+                    as: 'authors'
+                }
+                ],
             })
             .then((book) => {
                 if (!book) {
@@ -46,8 +58,12 @@ module.exports = {
         return Book
             .findById(req.params.id, {
                 include: [{
-                    model: Book,
-                    as: 'Books'
+                    model: Page,
+                    as: 'pages'
+                },
+                {
+                    model: Author,
+                    as: 'authors'
                 }],
             })
             .then(book => {

@@ -1,12 +1,13 @@
 ﻿const Page = require('../models').Page;
+const Book = require('../models').Book;
 
 module.exports = {
     list(req, res) {
         return Page
             .findAll({
                 include: [{
-                    model: Page,
-                    as: 'Pages'
+                    model: Book,
+                    as: 'book'
                 }],
             })
             .then((pages) => res.status(200).send(pages))
@@ -17,8 +18,8 @@ module.exports = {
         return Page
             .findById(req.params.id, {
                 include: [{
-                    model: Page,
-                    as: 'Pages'
+                    model: Book,
+                    as: 'book'
                 }],
             })
             .then((page) => {
@@ -47,8 +48,8 @@ module.exports = {
         return Page
             .findById(req.params.id, {
                 include: [{
-                    model: Page,
-                    as: 'Pages'
+                    model: Book,
+                    as: 'book'
                 }],
             })
             .then(page => {

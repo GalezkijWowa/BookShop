@@ -1,13 +1,15 @@
 ﻿const Author = require('../models').Author;
+const Book = require('../models').Book;
+const Page = require('../models').Page;
 
 module.exports = {
     list(req, res) {
         return Author
             .findAll({
                 include: [{
-                    model: Author,
-                    as: 'Authors'
-                }],
+                    model: Book,
+                    as: 'books'
+                }]
             })
             .then((authors) => res.status(200).send(authors))
             .catch((error) => { res.status(400).send(error); });
@@ -17,9 +19,9 @@ module.exports = {
         return Author
             .findById(req.params.id, {
                 include: [{
-                    model: Author,
-                    as: 'Authors'
-                }],
+                    model: Book,
+                    as: 'books'
+                }]
             })
             .then((author) => {
                 if (!author) {
@@ -46,9 +48,9 @@ module.exports = {
         return Author
             .findById(req.params.id, {
                 include: [{
-                    model: Author,
-                    as: 'Authors'
-                }],
+                    model: Book,
+                    as: 'books'
+                }]
             })
             .then(author => {
                 if (!author) {

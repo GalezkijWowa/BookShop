@@ -5,8 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     number: DataTypes.INTEGER,
     book_id: DataTypes.INTEGER
   }, {});
-  Page.associate = function(models) {
-      foreignKey: 'book_id'
-  };
+    Page.associate = function (models) {
+        Page.belongsTo(models.Book, {
+            foreignKey: 'book_id',
+            as: 'book'
+        });
+    };
   return Page;
 };
