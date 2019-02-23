@@ -8,13 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      content: {
+    content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
-      number: {
+    number: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      book_id: {
+    book_id: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

@@ -8,10 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      author_id: {
+    author_id: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
-      book_id: {
+    book_id: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

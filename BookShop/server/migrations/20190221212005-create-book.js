@@ -8,10 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
+    title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
-      cost: {
+    cost: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
