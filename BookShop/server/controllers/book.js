@@ -1,6 +1,7 @@
 ﻿const Book = require('../models').Book;
 const Page = require('../models').Page;
 const Author = require('../models').Author;
+const BookAuthor = require('../models').BookAuthor;
 
 module.exports = {
     list(req, res) {
@@ -97,6 +98,16 @@ module.exports = {
                     .then(() => res.status(204).send())
                     .catch((error) => res.status(400).send(error));
             })
+            .catch((error) => res.status(400).send(error));
+    },
+
+    addBookAuthor(req, res) {
+        return BookAuthor
+            .create({
+                book_id: req.body.book_id,
+                author_id: req.body.author_id
+            })
+            .then((bookauthor) => res.status(201).send(bookauthor))
             .catch((error) => res.status(400).send(error));
     },
 };
