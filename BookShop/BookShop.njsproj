@@ -31,6 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="server\config\passport.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server\controllers\author.js">
       <SubType>Code</SubType>
     </Compile>
@@ -43,36 +46,44 @@
     <Compile Include="server\controllers\page.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="server\middleware\index.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server\migrations\20190221205315-create-page.js" />
     <Compile Include="server\migrations\20190221212005-create-book.js" />
     <Compile Include="server\migrations\20190221212637-create-author.js" />
     <Compile Include="server\migrations\20190221212946-create-book-author.js" />
+    <Compile Include="server\migrations\20190224183937-create-user.js" />
+    <Compile Include="server\controllers\auth.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server\models\author.js" />
     <Compile Include="server\models\book.js" />
     <Compile Include="server\models\bookauthor.js" />
     <Compile Include="server\models\index.js" />
     <Compile Include="server\models\page.js" />
+    <Compile Include="server\models\user.js" />
     <Compile Include="server\routes\index.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server\util\application.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include=".sequelizerc">
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />
-    <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="server\config\config.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="server\" />
-    <Folder Include="public\" />
-    <Folder Include="public\images\" />
-    <Folder Include="public\javascripts\" />
-    <Folder Include="public\stylesheets\" />
     <Folder Include="server\config\" />
     <Folder Include="server\migrations\" />
     <Folder Include="server\models\" />
     <Folder Include="server\controllers\" />
+    <Folder Include="server\middleware\" />
+    <Folder Include="server\util\" />
     <Folder Include="server\routes\" />
     <Folder Include="server\seeders\" />
   </ItemGroup>
