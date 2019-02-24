@@ -1,8 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Book = sequelize.define('Book', {
-    title: DataTypes.STRING,
-    cost: DataTypes.INTEGER
+      title: {
+          allowNull: false,
+          type: DataTypes.STRING
+      },
+      cost: {
+          allowNull: false,
+          type: DataTypes.INTEGER
+      }
   }, {});
   Book.associate = function(models) {
       Book.hasMany(models.Page, {

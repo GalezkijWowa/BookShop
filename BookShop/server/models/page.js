@@ -1,9 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Page = sequelize.define('Page', {
-    content: DataTypes.STRING,
-    number: DataTypes.INTEGER,
-    book_id: DataTypes.INTEGER
+      content: {
+          allowNull: false,
+          type: DataTypes.STRING
+      },
+      number: {
+          allowNull: false,
+          type: DataTypes.INTEGER
+      },
+      book_id: {
+          allowNull: false,
+          type: DataTypes.INTEGER
+      }
   }, {});
     Page.associate = function (models) {
         Page.belongsTo(models.Book, {

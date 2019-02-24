@@ -1,8 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Author = sequelize.define('Author', {
-    name: DataTypes.STRING,
-    age: DataTypes.INTEGER
+      name: {
+          allowNull: false,
+          type: DataTypes.STRING
+      },
+      age: {
+          allowNull: false,
+          type: DataTypes.INTEGER
+      }
   }, {});
   Author.associate = function(models) {
       Author.belongsToMany(models.Book, {
