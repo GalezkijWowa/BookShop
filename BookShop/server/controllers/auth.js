@@ -18,8 +18,8 @@ module.exports = {
                 }
                 user.comparePassword(req.body.password, (err, isMatch) => {
                     if (isMatch && !err) {
-                        var token = jwt.sign(JSON.parse(JSON.stringify(user)), 'secretkey', { expiresIn: 86400 * 30 });
-                        jwt.verify(token, 'secretkey', function (err, data) {
+                        var token = jwt.sign(JSON.parse(JSON.stringify(user)), process.env.JWT_SERCRET_KEY, { expiresIn: 86400 * 30 });
+                        jwt.verify(token, process.env.JWT_SERCRET_KEY, function (err, data) {
                             console.log(err, data);
                         })
                         res.json({ success: true, token: 'JWT ' + token });

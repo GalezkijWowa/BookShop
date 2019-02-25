@@ -14,7 +14,7 @@ module.exports = {
     },
 
     isAuth(req, res, next) {
-        jwt.verify(req.token, 'secretkey', (err, authData) => {
+        jwt.verify(req.token, process.env.JWT_SERCRET_KEY, (err, authData) => {
             if (err) {
                 res.sendStatus(403);
             } else {
