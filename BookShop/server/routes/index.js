@@ -1,6 +1,6 @@
 ﻿var express = require('express');
 var router = express.Router();
-var checkAuth = require('../util/application');
+var auth = require('../middleware/auth');
 
 const authorController = require('../controllers').author;
 const bookController = require('../controllers').book;
@@ -13,7 +13,7 @@ router.post('/api/author', authorController.add);
 router.put('/api/author/:id', authorController.update);
 router.delete('/api/author/:id', authorController.delete);
 
-router.get('/api/book', checkAuth.ensureAuthenticated, bookController.list);
+router.get('/api/book', auth.verifyToken, auth.isAuth, bookController.list);
 router.get('/api/book/:id', bookController.getById);
 router.post('/api/book', bookController.add);
 router.put('/api/book/:id', bookController.update);

@@ -13,36 +13,23 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING
         }
-    },
-    {
-        classMethods: {
-            comparePassword: function (password, hash, callback) {
-                bcrypt.compare(password, hash, function (err, isMatch) {
-                    if (err) {
-                        return callback(err, null);
-                    } else {
-                        callback(null, isMatch);
-                    }
-                });
-            }
+    });
+
+    User.beforeSave((user, options) => {
+        if (user.changed('password')) {
+            user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
         }
     });
-    User.associate = function(models) {
+    User.prototype.comparePassword = function (passw, cb) {
+        bcrypt.compare(passw, this.password, function (err, isMatch) {
+            if (err) {
+                return cb(err);
+            }
+            cb(null, isMatch);
+        });
+    };
+    User.associate = function (models) {
         // associations can be defined here
     };
-
-    //User.addHook('beforeCreate', function (user, callback) {
-    //    var SALT_WORK_FACTOR = 10;
-    //    var salt = bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-    //        return salt;
-    //    });
-
-    //    bcrypt.hash(user.password, salt, null, function (err, hash) {
-    //        if (err) return next(err);
-    //        user.password = hash;
-    //        return callback(user);
-    //    });
-    //});
-
     return User;
 };

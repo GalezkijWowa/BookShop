@@ -31,9 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
-    <Compile Include="server\config\passport.js">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="server\controllers\author.js">
       <SubType>Code</SubType>
     </Compile>
@@ -66,7 +63,7 @@
     <Compile Include="server\routes\index.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="server\util\application.js">
+    <Compile Include="server\middleware\auth.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include=".sequelizerc">
@@ -83,7 +80,6 @@
     <Folder Include="server\models\" />
     <Folder Include="server\controllers\" />
     <Folder Include="server\middleware\" />
-    <Folder Include="server\util\" />
     <Folder Include="server\routes\" />
     <Folder Include="server\seeders\" />
   </ItemGroup>

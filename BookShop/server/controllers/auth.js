@@ -1,12 +1,34 @@
 ﻿const User = require('../models').User;
-var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
     singIn(req, res) {
-        passport.authenticate('local')
-            .then((user) => res.status(200).send(user))
-            //.catch((error) => res.status(400).send(error));
+        User
+            .find({
+                where: {
+                    username: req.body.username
+                }
+            })
+            .then((user) => {
+                if (!user) {
+                    return res.status(401).send({
+                        message: 'Authentication failed. User not found.',
+                    });
+                }
+                user.comparePassword(req.body.password, (err, isMatch) => {
+                    if (isMatch && !err) {
+                        var token = jwt.sign(JSON.parse(JSON.stringify(user)), 'secretkey', { expiresIn: 86400 * 30 });
+                        jwt.verify(token, 'secretkey', function (err, data) {
+                            console.log(err, data);
+                        })
+                        res.json({ success: true, token: 'JWT ' + token });
+                    } else {
+                        res.status(401).send({ success: false, msg: 'Authentication failed. Wrong password.' });
+                    }
+                })
+            })
+            .catch((error) => res.status(400).send(error));
     },
 
     register(req, res) {
@@ -14,22 +36,17 @@ module.exports = {
             where: { username: req.body.username }
         })
             .then(function (user) {
-                var SALT_WORK_FACTOR = 10;
-                bcrypt.genSalt(SALT_WORK_FACTOR).then(function (salt) {
-                    bcrypt.hash(req.body.password, salt).then(function (hash) {
-                        if (!user) {
-                            User
-                                .create({
-                                    username: req.body.username,
-                                    password: hash
-                                })
-                                .then((user) => res.status(201).send(user))
-                                .catch((error) => res.status(400).send(error));
-                        } else {
-                            res.status(201).send(user);
-                        }
-                    });
-                });
+                if (!user) {
+                    User
+                        .create({
+                            username: req.body.username,
+                            password: req.body.password
+                        })
+                        .then((user) => res.status(201).send(user))
+                        .catch((error) => res.status(400).send(error));
+                } else {
+                    res.status(401).send({ msg: 'User already exists.' })
+                }
             })
             .catch(function (err) {
                 throw err;

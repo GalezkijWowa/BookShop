@@ -4,8 +4,6 @@
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     routes = require('../routes'),
-    passport = require('passport'),
-    passportConfig = require('../config/passport');
     session = require('express-session');
 
 
@@ -19,11 +17,7 @@ module.exports = function (app, express) {
         resave: false,
         saveUninitialized: true
     }));
-    app.use(passport.initialize());
-    app.use(passport.session());
 
-    
-    //app.use(require("./loadUser"));
     app.use(routes);
 
     app.use(function (req, res, next) {
