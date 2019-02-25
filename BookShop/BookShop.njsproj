@@ -78,12 +78,18 @@
     <Compile Include="server\routes\page.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="server\routes\swagger.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Content Include=".sequelizerc">
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="server\config\config.json" />
+    <Content Include="server\swagger.json">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="server\" />
