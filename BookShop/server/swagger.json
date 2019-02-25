@@ -83,6 +83,202 @@
           }
         }
       }
+    },
+    "api/author":{
+      "get": {
+        "tags": [
+          "Author"
+        ],
+        "summary": "Get all authors in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Authors"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Author"
+        ],
+        "summary": "Add author to the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          }
+        }
+      }
+    },
+    "api/author/{id}":{
+      "get": {
+        "tags": [
+          "Author"
+        ],
+        "summary": "Get author by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Author"
+        ],
+        "summary": "Update author by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Author"
+        ],
+        "summary": "Delete author by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          }
+        }
+      }
+    },
+    "api/book":{
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Get all books in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Add book to the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      }
+    },
+    "api/book/{id}":{
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Get book by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Update book by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Delete book by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        }
+      }
+    },
+    "api/author/author":{
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Add bookauthor to the system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BookAuthor"
+            }
+          }
+        }
+      }
+    },
+    "api/auth/singin": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Sing in",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "api/auth/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Register",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -121,6 +317,80 @@
           "additionalProperties": {
             "$ref": "#/definitions/Page"
           }
+        }
+      }
+    },
+    "Book":{
+      "type": "object",
+      "properties": {
+          "title":{
+            "allowNull": false,
+            "type": "string"
+          },
+          "cost":{
+            "allowNull": false,
+            "type": "integer"
+          }
+      }
+    },
+    "Books": {
+      "type": "object",
+      "properties": {
+        "books": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Book"
+          }
+        }
+      }
+    },
+    "Author":{
+      "type": "object",
+      "properties": {
+          "name":{
+            "allowNull": false,
+            "type": "string"
+          },
+          "age":{
+            "allowNull": false,
+            "type": "integer"
+          }
+      }
+    },
+    "Authors": {
+      "type": "object",
+      "properties": {
+        "books": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Author"
+          }
+        }
+      }
+    },
+    "BookAuthor": {
+      "type": "object",
+      "properties": {
+          "author_id":{
+            "allowNull": false,
+            "type": "integer"
+          },
+          "book_id":{
+            "allowNull": false,
+            "type": "integer"
+          }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "username":{
+          "allowNull": false,
+          "type": "string"
+        },
+        "password": {
+          "allowNull": false,
+          "type": "string"
         }
       }
     }
