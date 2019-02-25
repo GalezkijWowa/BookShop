@@ -60,10 +60,22 @@
     <Compile Include="server\models\index.js" />
     <Compile Include="server\models\page.js" />
     <Compile Include="server\models\user.js" />
+    <Compile Include="server\routes\auth.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server\routes\author.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server\routes\book.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server\routes\index.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="server\middleware\auth.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server\routes\page.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include=".sequelizerc">
