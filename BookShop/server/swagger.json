@@ -2,11 +2,127 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "test",
-    "description": "test description",
+    "title": "Book Shop",
+    "description": "MY Sequelize/Express/Node/Swagger/PG task",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "paths": {
+    "/api/page": {
+      "get": {
+        "tags": [
+          "Page"
+        ],
+        "summary": "Get all pages in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Pages"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Page"
+        ],
+        "summary": "Add new page",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          }
+        }
+      }
+    },
+    "api/page/{id}":{
+      "put": {
+        "tags": [
+          "Page"
+        ],
+        "summary": "Update page",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Page"
+        ],
+        "summary": "Delete page by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Page"
+        ],
+        "summary": "Get page by ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "uuid": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Unique Identifier representing a document",
+          "x-primary-key": true
+        }
+      }
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "content": {
+            "allowNull": false,
+            "type": "integer"
+        },
+        "book_id": {
+            "allowNull": false,
+            "type": "integer"
+        },
+        "number":{
+          "allowNull": false,
+            "type": "integer"
+        }
+      }
+    },
+    "Pages": {
+      "type": "object",
+      "properties": {
+        "pages": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Page"
+          }
+        }
+      }
     }
   }
 }
