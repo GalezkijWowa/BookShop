@@ -33,13 +33,18 @@ function getById(req, res) {
 }
 
 function add(req, res) {
-    return Author
-        .create({
-            name: req.body.name,
-            age: req.body.age
-        })
-        .then((author) => res.status(201).send(author))
-        .catch((error) => res.status(400).send(error));
+    if (req.body.age || req.body.age < 0) res.status(400).send({
+        message: "Age can't be less then 0",
+    });
+    else {
+        return Author
+            .create({
+                name: req.body.name,
+                age: req.body.age
+            })
+            .then((author) => res.status(201).send(author))
+            .catch((error) => res.status(400).send(error));
+    }  
 }
 
 function update(req, res) {

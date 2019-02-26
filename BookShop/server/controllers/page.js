@@ -33,14 +33,19 @@ function getById(req, res) {
 }
 
 function add(req, res) {
-    return Page
-        .create({
-            content: req.body.content,
-            number: req.body.number,
-            book_id: req.body.book_id,
-        })
-        .then((page) => res.status(201).send(page))
-        .catch((error) => res.status(400).send(error));
+    if (req.body.number || req.body.number < 0) res.status(400).send({
+        message: "Age can't be less then 0",
+    });
+    else {
+        return Page
+            .create({
+                content: req.body.content,
+                number: req.body.number,
+                book_id: req.body.book_id,
+            })
+            .then((page) => res.status(201).send(page))
+            .catch((error) => res.status(400).send(error));
+    }
 }
 
 function update(req, res) {

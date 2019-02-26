@@ -46,13 +46,18 @@ function getById(req, res) {
 }
 
 function add(req, res) {
-    return Book
-        .create({
-            title: req.body.title,
-            cost: req.body.cost
-        })
-        .then((book) => res.status(201).send(book))
-        .catch((error) => res.status(400).send(error));
+    if (req.body.cost || req.body.cost < 0) res.status(400).send({
+        message: "Cost can't be less then 0",
+    });
+    else {
+        return Book
+            .create({
+                title: req.body.title,
+                cost: req.body.cost
+            })
+            .then((book) => res.status(201).send(book))
+            .catch((error) => res.status(400).send(error));
+    }
 }
 
 function update(req, res) {
