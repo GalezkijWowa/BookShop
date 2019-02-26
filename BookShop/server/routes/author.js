@@ -7,6 +7,6 @@ router.get("/api/author", auth.verifyToken, auth.isAuth, authorController.list);
 router.get("/api/author/:id", auth.verifyToken, auth.isAuth, authorController.getById);
 router.post("/api/author", auth.verifyToken, auth.isAuth, authorController.add);
 router.put("/api/author/:id", auth.verifyToken, auth.isAuth, authorController.update);
-router.delete("/api/author/:id", auth.verifyToken, auth.isAuth, authorController.delete);
+router.delete("/api/author/:id", auth.verifyToken, auth.isAuth, authorController.del);
 
 module.exports = router;

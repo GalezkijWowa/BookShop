@@ -46,10 +46,10 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/Pages"
-            },
-            "400": {
-              "description": "Failed."
             }
+          },
+          "400": {
+            "description": "Failed."
           }
         }
       },
@@ -119,13 +119,13 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/Page"
-            },
-            "400": {
-              "description": "Failed. Bad post data."
-            },
-            "404": {
-              "description": "Failed. Page Not Found."
             }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          },
+          "404": {
+            "description": "Failed. Page Not Found."
           }
         }
       },
@@ -211,10 +211,10 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/Authors"
-            },
-            "400": {
-              "description": "Failed."
             }
+          },
+          "400": {
+            "description": "Failed."
           }
         }
       },
@@ -276,13 +276,13 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/Author"
-            },
-            "400": {
-              "description": "Failed. Bad request params."
-            },
-            "404": {
-              "description": "Failed. Author not found"
             }
+          },
+          "400": {
+            "description": "Failed. Bad request params."
+          },
+          "404": {
+            "description": "Failed. Author not found"
           }
         }
       },
