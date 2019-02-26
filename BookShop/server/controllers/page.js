@@ -1,5 +1,5 @@
-﻿const Page = require('../models').Page;
-const Book = require('../models').Book;
+﻿const Page = require("../models").Page;
+const Book = require("../models").Book;
 
 module.exports = {
     list(req, res) {
@@ -7,7 +7,7 @@ module.exports = {
             .findAll({
                 include: [{
                     model: Book,
-                    as: 'book'
+                    as: "book"
                 }],
             })
             .then((pages) => res.status(200).send(pages))
@@ -19,13 +19,13 @@ module.exports = {
             .findById(req.params.id, {
                 include: [{
                     model: Book,
-                    as: 'book'
+                    as: "book"
                 }],
             })
             .then((page) => {
                 if (!page) {
                     return res.status(404).send({
-                        message: 'Page Not Found',
+                        message: "Page Not Found",
                     });
                 }
                 return res.status(200).send(page);
@@ -49,13 +49,13 @@ module.exports = {
             .findById(req.params.id, {
                 include: [{
                     model: Book,
-                    as: 'book'
+                    as: "book"
                 }],
             })
             .then(page => {
                 if (!page) {
                     return res.status(404).send({
-                        message: 'Page Not Found',
+                        message: "Page Not Found",
                     });
                 }
                 return page
@@ -76,7 +76,7 @@ module.exports = {
             .then(page => {
                 if (!page) {
                     return res.status(400).send({
-                        message: 'Page Not Found',
+                        message: "Page Not Found",
                     });
                 }
                 return page

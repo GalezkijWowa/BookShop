@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Page = sequelize.define('Page', {
+  const Page = sequelize.define("Page", {
       content: {
           allowNull: false,
           type: DataTypes.STRING
@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
     Page.associate = function (models) {
         Page.belongsTo(models.Book, {
-            foreignKey: 'book_id',
-            as: 'book'
+            foreignKey: "book_id",
+            as: "book"
         });
     };
   return Page;

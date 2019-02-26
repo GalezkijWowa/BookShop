@@ -1,7 +1,6 @@
-﻿const User = require('../models').User;
-var bcrypt = require('bcrypt-nodejs');
-const jwt = require('jsonwebtoken');
-const config = require('../config');
+﻿const User = require("../models").User;
+const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 module.exports = {
     singIn(req, res) {
@@ -14,20 +13,20 @@ module.exports = {
             .then((user) => {
                 if (!user) {
                     return res.status(401).send({
-                        message: 'Authentication failed. User not found.',
+                        message: "Authentication failed. User not found."
                     });
                 }
                 user.comparePassword(req.body.password, (err, isMatch) => {
                     if (isMatch && !err) {
-                        var token = jwt.sign(JSON.parse(JSON.stringify(user)), process.env.JWT_SERCRET_KEY, { expiresIn: config.get('jwtExpires') });
+                        var token = jwt.sign(JSON.parse(JSON.stringify(user)), process.env.JWT_SERCRET_KEY, { expiresIn: config.get("jwtExpires") });
                         jwt.verify(token, process.env.JWT_SERCRET_KEY, function (err, data) {
                             console.log(err, data);
-                        })
-                        res.json({ success: true, token: 'JWT ' + token });
+                        });
+                        res.json({ success: true, token: "JWT " + token });
                     } else {
-                        res.status(401).send({ success: false, msg: 'Authentication failed. Wrong password.' });
+                        res.status(401).send({ success: false, msg: "Authentication failed. Wrong password." });
                     }
-                })
+                });
             })
             .catch((error) => res.status(400).send(error));
     },
@@ -46,7 +45,7 @@ module.exports = {
                         .then((user) => res.status(201).send(user))
                         .catch((error) => res.status(400).send(error));
                 } else {
-                    res.status(401).send({ msg: 'User already exists.' })
+                    res.status(401).send({ msg: "User already exists." });
                 }
             })
             .catch(function (err) {

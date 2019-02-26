@@ -1,7 +1,7 @@
-﻿const Book = require('../models').Book;
-const Page = require('../models').Page;
-const Author = require('../models').Author;
-const BookAuthor = require('../models').BookAuthor;
+﻿const Book = require("../models").Book;
+const Page = require("../models").Page;
+const Author = require("../models").Author;
+const BookAuthor = require("../models").BookAuthor;
 
 module.exports = {
     list(req, res) {
@@ -9,11 +9,11 @@ module.exports = {
             .findAll({
                 include: [{
                     model: Page,
-                    as: 'pages'
+                    as: "pages"
                 },
                 {
                     model: Author,
-                    as: 'authors'
+                    as: "authors"
                 }
                 ],
             })
@@ -26,18 +26,18 @@ module.exports = {
             .findById(req.params.id, {
                 include: [{
                     model: Page,
-                    as: 'pages'
+                    as: "pages"
                 },
                 {
                     model: Author,
-                    as: 'authors'
+                    as: "authors"
                 }
                 ],
             })
             .then((book) => {
                 if (!book) {
                     return res.status(404).send({
-                        message: 'Book Not Found',
+                        message: "Book Not Found",
                     });
                 }
                 return res.status(200).send(book);
@@ -60,17 +60,17 @@ module.exports = {
             .findById(req.params.id, {
                 include: [{
                     model: Page,
-                    as: 'pages'
+                    as: "pages"
                 },
                 {
                     model: Author,
-                    as: 'authors'
+                    as: "authors"
                 }],
             })
             .then(book => {
                 if (!book) {
                     return res.status(404).send({
-                        message: 'Book Not Found',
+                        message: "Book Not Found",
                     });
                 }
                 return book
@@ -90,7 +90,7 @@ module.exports = {
             .then(book => {
                 if (!book) {
                     return res.status(400).send({
-                        message: 'Book Not Found',
+                        message: "Book Not Found",
                     });
                 }
                 return book

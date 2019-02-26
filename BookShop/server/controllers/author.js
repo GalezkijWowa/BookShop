@@ -1,6 +1,5 @@
-﻿const Author = require('../models').Author;
-const Book = require('../models').Book;
-const Page = require('../models').Page;
+﻿const Author = require("../models").Author;
+const Book = require("../models").Book;
 
 module.exports = {
     list(req, res) {
@@ -8,7 +7,7 @@ module.exports = {
             .findAll({
                 include: [{
                     model: Book,
-                    as: 'books'
+                    as: "books"
                 }]
             })
             .then((authors) => res.status(200).send(authors))
@@ -20,13 +19,13 @@ module.exports = {
             .findById(req.params.id, {
                 include: [{
                     model: Book,
-                    as: 'books'
+                    as: "books"
                 }]
             })
             .then((author) => {
                 if (!author) {
                     return res.status(404).send({
-                        message: 'Author Not Found',
+                        message: "Author Not Found",
                     });
                 }
                 return res.status(200).send(author);
@@ -49,13 +48,13 @@ module.exports = {
             .findById(req.params.id, {
                 include: [{
                     model: Book,
-                    as: 'books'
+                    as: "books"
                 }]
             })
             .then(author => {
                 if (!author) {
                     return res.status(404).send({
-                        message: 'Author Not Found',
+                        message: "Author Not Found",
                     });
                 }
                 return author
@@ -75,7 +74,7 @@ module.exports = {
             .then(author => {
                 if (!author) {
                     return res.status(400).send({
-                        message: 'Author Not Found',
+                        message: "Author Not Found",
                     });
                 }
                 return author

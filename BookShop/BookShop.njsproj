@@ -102,6 +102,7 @@
     <Folder Include="server\models\" />
     <Folder Include="server\controllers\" />
     <Folder Include="server\middleware\" />
+    <Folder Include="server\test\" />
     <Folder Include="server\routes\" />
     <Folder Include="server\seeders\" />
   </ItemGroup>

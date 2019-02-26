@@ -1,7 +1,7 @@
-﻿const book = require('./book');
-const author = require('./author');
-const page = require('./page');
-const auth = require('./auth');
+﻿const book = require("./book");
+const author = require("./author");
+const page = require("./page");
+const auth = require("./auth");
 
 module.exports = {
     book,
