@@ -1,6 +1,7 @@
 'use strict';
 
 var bcrypt = require('bcrypt-nodejs');
+const config = require('../config');
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -17,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 
     User.beforeSave((user, options) => {
         if (user.changed('password')) {
-            user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+            user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(config.get('saltWordFactor')), null);
         }
     });
     User.prototype.comparePassword = function (passw, cb) {

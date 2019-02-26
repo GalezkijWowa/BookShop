@@ -12,5 +12,7 @@
     "database": "bookshop_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
-  }
+  },
+  "saltWordFactor": 10,
+  "jwtExpires": 2592000
 }

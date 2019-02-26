@@ -32,6 +32,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="server\config\index.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server\controllers\author.js">
       <SubType>Code</SubType>
     </Compile>
