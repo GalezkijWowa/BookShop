@@ -1,5 +1,5 @@
-﻿const Author = require("../models").Author;
-const Book = require("../models").Book;
+﻿const Author = require("../database/models").Author;
+const Book = require("../database/models").Book;
 
 function list(req, res) {
     return Author

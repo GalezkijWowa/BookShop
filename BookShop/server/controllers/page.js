@@ -1,5 +1,5 @@
-﻿const Page = require("../models").Page;
-const Book = require("../models").Book;
+﻿const Page = require("../database/models").Page;
+const Book = require("../database/models").Book;
 
 function list(req, res) {
     return Page

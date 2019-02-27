@@ -1,7 +1,7 @@
-﻿const Book = require("../models").Book;
-const Page = require("../models").Page;
-const Author = require("../models").Author;
-const BookAuthor = require("../models").BookAuthor;
+﻿const Book = require("../database/models").Book;
+const Page = require("../database/models").Page;
+const Author = require("../database/models").Author;
+const BookAuthor = require("../database/models").BookAuthor;
 
 
 function list(req, res) {
