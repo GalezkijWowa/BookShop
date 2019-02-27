@@ -97,6 +97,18 @@
     <Compile Include="server\services\pageService.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="test\auth.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\author.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\book.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\page.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Content Include=".sequelizerc">
       <SubType>Code</SubType>
     </Content>
@@ -116,7 +128,7 @@
     <Folder Include="server\middleware\" />
     <Folder Include="server\database\" />
     <Folder Include="server\services\" />
-    <Folder Include="server\test\" />
+    <Folder Include="test\" />
     <Folder Include="server\routes\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->

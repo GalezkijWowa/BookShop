@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test": "mocha --timeout 10000"
   },
   "description": "BookShop",
   "author": {
@@ -36,6 +37,7 @@
     "chai-http": "^4.2.1",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
+    "dotenv": "^6.2.0",
     "eslint": "^5.14.1",
     "express": "^4.14.0",
     "express-session": "^1.15.6",
