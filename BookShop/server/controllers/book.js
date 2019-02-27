@@ -46,8 +46,8 @@ function getById(req, res) {
 }
 
 function add(req, res) {
-    if (req.body.cost || req.body.cost < 0) res.status(400).send({
-        message: "Cost can't be less then 0",
+    if (req.body.cost === undefined || req.body.cost < 0) res.status(400).send({
+        message: "Cost undefined or less than 0",
     });
     else {
         return Book
@@ -107,13 +107,35 @@ function del(req, res) {
 }
 
 function addBookAuthor(req, res) {
-    return BookAuthor
-        .create({
-            book_id: req.body.book_id,
-            author_id: req.body.author_id
-        })
-        .then((bookauthor) => res.status(201).send(bookauthor))
-        .catch((error) => res.status(400).send(error));
+    Promise.all([
+        BookAuthor.find({
+            where: {
+                book_id: req.body.book_id,
+                author_id: req.body.author_id
+            }
+        }),
+        Book.findById(req.body.book_id),
+        Author.findById(req.body.author_id)
+    ]).then(function (results) {
+        if (results[0]) {
+            res.status(400).send({ msg: "Relationship already exists." });
+        }
+        else if (!results[1]) {
+            res.status(404).send({ msg: "Book not found." });
+        }
+        else if (!results[2]) {
+            res.status(404).send({ msg: "Author not found." });
+        }
+        else {
+            return BookAuthor
+                .create({
+                    book_id: req.body.book_id,
+                    author_id: req.body.author_id
+                })
+                .then((bookauthor) => res.status(201).send(bookauthor))
+                .catch((error) => res.status(400).send(error));
+        }
+    });
 }
 
 module.exports.list = list;

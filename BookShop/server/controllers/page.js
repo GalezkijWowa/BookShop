@@ -33,18 +33,38 @@ function getById(req, res) {
 }
 
 function add(req, res) {
-    if (req.body.number || req.body.number < 0) res.status(400).send({
-        message: "Age can't be less then 0",
-    });
+    if (req.body.number === undefined || req.body.number < 0) {
+        res.status(400).send({ message: "Page number undefind or less than 0" });
+    }
     else {
-        return Page
-            .create({
-                content: req.body.content,
-                number: req.body.number,
-                book_id: req.body.book_id,
-            })
-            .then((page) => res.status(201).send(page))
-            .catch((error) => res.status(400).send(error));
+        Promise.all([
+            Page.find({
+                where: {
+                    number: req.body.number,
+                    book_id: req.body.book_id
+                }
+            }),
+            Book.findById(req.body.book_id)
+        ]).then(function (results) {
+            if (results[0]) {
+                res.status(400).send({
+                    message: "Page already exists",
+                });
+            }
+            else if (results[1]) {
+                res.status(404).send({ msg: "Book not found." });
+            }
+            else {
+                return Page
+                    .create({
+                        content: req.body.content,
+                        number: req.body.number,
+                        book_id: req.body.book_id,
+                    })
+                    .then((page) => res.status(201).send(page))
+                    .catch((error) => res.status(400).send(error));
+            }
+        });
     }
 }
 
