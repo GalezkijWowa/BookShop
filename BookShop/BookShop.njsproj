@@ -85,6 +85,18 @@
     <Compile Include="server\routes\swagger.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="server\services\authorService.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server\services\authService.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server\services\bookService.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="server\services\pageService.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Content Include=".sequelizerc">
       <SubType>Code</SubType>
     </Content>

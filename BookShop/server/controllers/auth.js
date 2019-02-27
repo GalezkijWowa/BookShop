@@ -1,15 +1,11 @@
-﻿const User = require("../database/models").User;
-const jwt = require("jsonwebtoken");
+﻿const jwt = require("jsonwebtoken");
 const config = require("../config");
+const authService = require("../services/authService");
 
 
 function singIn(req, res) {
-    User
-        .find({
-            where: {
-                username: req.body.username
-            }
-        })
+    authService
+        .findByName(req.body.username)
         .then((user) => {
             if (!user) {
                 return res.status(404).send({
@@ -32,16 +28,12 @@ function singIn(req, res) {
 }
 
 function register(req, res) {
-    User.find({
-        where: { username: req.body.username }
-    })
+    authService
+        .findByName(req.body.username)
         .then(function (user) {
             if (!user) {
-                User
-                    .create({
-                        username: req.body.username,
-                        password: req.body.password
-                    })
+                authService
+                    .create(req.body.username, req.body.password)
                     .then((user) => res.status(201).send(user))
                     .catch((error) => res.status(400).send(error));
             } else {

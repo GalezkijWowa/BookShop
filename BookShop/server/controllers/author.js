@@ -1,26 +1,15 @@
-﻿const Author = require("../database/models").Author;
-const Book = require("../database/models").Book;
+﻿const authorService = require("../services/authorService");
 
 function list(req, res) {
-    return Author
-        .findAll({
-            include: [{
-                model: Book,
-                as: "books"
-            }]
-        })
+     return authorService
+        .findAll()
         .then((authors) => res.status(200).send(authors))
         .catch((error) => { res.status(400).send(error); });
 }
 
 function getById(req, res) {
-    return Author
-        .findById(req.params.id, {
-            include: [{
-                model: Book,
-                as: "books"
-            }]
-        })
+    return authorService
+        .findById(req.params.id)
         .then((author) => {
             if (!author) {
                 return res.status(404).send({
@@ -33,47 +22,19 @@ function getById(req, res) {
 }
 
 function add(req, res) {
-    if (req.body.age || req.body.age < 0) res.status(400).send({
-        message: "Age can't be less then 0",
+    if (!req.body.age || req.body.age < 0) res.status(400).send({
+        message: "Age undefined or less then 0",
     });
     else {
-        return Author
-            .create({
-                name: req.body.name,
-                age: req.body.age
-            })
+        return authorService
+            .create(req.body.name, req.body.age)
             .then((author) => res.status(201).send(author))
             .catch((error) => res.status(400).send(error));
     }  
 }
 
 function update(req, res) {
-    return Author
-        .findById(req.params.id, {
-            include: [{
-                model: Book,
-                as: "books"
-            }]
-        })
-        .then(author => {
-            if (!author) {
-                return res.status(404).send({
-                    message: "Author Not Found",
-                });
-            }
-            return author
-                .update({
-                    name: req.body.name,
-                    age: req.body.age
-                })
-                .then(() => res.status(200).send(author))
-                .catch((error) => res.status(400).send(error));
-        })
-        .catch((error) => res.status(400).send(error));
-}
-
-function del(req, res) {
-    return Author
+    return authorService
         .findById(req.params.id)
         .then(author => {
             if (!author) {
@@ -81,9 +42,26 @@ function del(req, res) {
                     message: "Author Not Found",
                 });
             }
-            return author
-                .destroy()
-                .then(() => res.status(204).send())
+            return authorService
+                .update(author, req.body.name, req.body.age)
+                .then(() => res.status(200).send(author))
+                .catch((error) => res.status(400).send(error));
+        })
+        .catch((error) => res.status(400).send(error));
+}
+
+function del(req, res) {
+    return authorService
+        .findById(req.params.id)
+        .then(author => {
+            if (!author) {
+                return res.status(404).send({
+                    message: "Author Not Found",
+                });
+            }
+            return authorService
+                .destroy(author)
+                .then(() => res.status(204).send({ message: "Removed" }))
                 .catch((error) => res.status(400).send(error));
         })
         .catch((error) => res.status(400).send(error));

@@ -1,26 +1,15 @@
-﻿const Page = require("../database/models").Page;
-const Book = require("../database/models").Book;
+﻿const pageService = require("../services/pageService");
 
 function list(req, res) {
-    return Page
-        .findAll({
-            include: [{
-                model: Book,
-                as: "book"
-            }],
-        })
+    return pageService
+        .findAll()
         .then((pages) => res.status(200).send(pages))
         .catch((error) => { res.status(400).send(error); });
 }
 
 function getById(req, res) {
-    return Page
-        .findById(req.params.id, {
-            include: [{
-                model: Book,
-                as: "book"
-            }],
-        })
+    return pageService
+        .findById(req.params.id)
         .then((page) => {
             if (!page) {
                 return res.status(404).send({
@@ -33,18 +22,13 @@ function getById(req, res) {
 }
 
 function add(req, res) {
-    if (req.body.number === undefined || req.body.number < 0) {
+    if (!req.body.number|| req.body.number < 0) {
         res.status(400).send({ message: "Page number undefind or less than 0" });
     }
     else {
         Promise.all([
-            Page.find({
-                where: {
-                    number: req.body.number,
-                    book_id: req.body.book_id
-                }
-            }),
-            Book.findById(req.body.book_id)
+            pageService.find( req.body.number, req.body.book_id),
+            pageService.findById(req.body.book_id)
         ]).then(function (results) {
             if (results[0]) {
                 res.status(400).send({
@@ -55,12 +39,8 @@ function add(req, res) {
                 res.status(404).send({ msg: "Book not found." });
             }
             else {
-                return Page
-                    .create({
-                        content: req.body.content,
-                        number: req.body.number,
-                        book_id: req.body.book_id,
-                    })
+                return pageService
+                    .create(req.body.content, req.body.number, req.body.book_id)
                     .then((page) => res.status(201).send(page))
                     .catch((error) => res.status(400).send(error));
             }
@@ -69,27 +49,30 @@ function add(req, res) {
 }
 
 function update(req, res) {
-    return Page
-        .findById(req.params.id, {
-            include: [{
-                model: Book,
-                as: "book"
-            }],
-        })
-        .then(page => {
-            if (!page) {
-                return res.status(404).send({
-                    message: "Page Not Found",
-                });
+    pageService.findById(req.body.book_id)
+        .then(function (book) {
+            if (book) {
+                return pageService
+                    .findById(req.params.id)
+                    .then(page => {
+                        if (!page) {
+                            return res.status(404).send({
+                                message: "Page Not Found",
+                            });
+                        }
+                        return page
+                            .update({
+                                content: req.body.content,
+                                number: req.body.number,
+                                book_id: req.body.book_id
+                            })
+                            .then(() => res.status(200).send(page))
+                            .catch((error) => res.status(400).send(error));
+                    })
             }
-            return page
-                .update({
-                    content: req.body.content,
-                    number: req.body.number,
-                    book_id: req.body.book_id
-                })
-                .then(() => res.status(200).send(page))
-                .catch((error) => res.status(400).send(error));
+            else {
+                res.status(404).send({ msg: "Book not found." });
+            }
         })
         .catch((error) => res.status(400).send(error));
 }
