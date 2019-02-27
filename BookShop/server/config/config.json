@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": 123456,
+    "database": "bookshop_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": 123456,
+    "database": "bookshop_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "saltWordFactor": 10,
+  "jwtExpires": 2592000
+}

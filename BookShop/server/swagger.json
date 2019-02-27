@@ -1,0 +1,730 @@
+﻿{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Book Shop",
+    "description": "MY Sequelize/Express/Node/Swagger/PG task",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "securityDefinitions": {
+		"Basic": {
+			"type": "basic"
+		},
+		"JWT": {
+			"type": "apiKey",
+			"name": "Authorization",
+			"in": "header"
+		}
+	},
+  "host": "localhost:1337",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/page": {
+      "get": {
+        "tags": [
+          "Page"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "summary": "Get all pages in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Pages"
+            }
+          },
+          "400": {
+            "description": "Failed."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Page"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+              "in": "body",
+              "name": "body",
+              "description": "Page that we want to create",
+              "schema": {
+                  "$ref": "#/definitions/Page"
+              }
+          }
+      ],
+        "summary": "Add new page",
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/api/page/{id}":{
+      "put": {
+        "tags": [
+          "Page"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the page that we want to match",
+              "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Page that we want to update",
+            "schema": {
+                "$ref": "#/definitions/Page"
+            }
+        }
+        ],
+        "summary": "Update page",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          },
+          "404": {
+            "description": "Failed. Page Not Found."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Page"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the page that we want to delete",
+              "type": "string"
+          }
+        ],
+        "summary": "Delete page by id",
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          },
+            "400": {
+              "description": "Failed. Page not found."
+            }
+        }
+      },
+      "get": {
+        "tags": [
+          "Page"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the page that we want to match",
+              "type": "string"
+          }
+        ],
+        "summary": "Get page by ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Page"
+            }
+          },
+          "400": {
+            "description": "Failed."
+          },
+          "404": {
+            "description": "Failed. Page Not Found."
+          }
+        }
+      }
+    },
+    "/api/author":{
+      "get": {
+        "tags": [
+          "Author"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "summary": "Get all authors in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Authors"
+            }
+          },
+          "400": {
+            "description": "Failed."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Author"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+              "in": "body",
+              "name": "body",
+              "description": "Author that we want to create",
+              "schema": {
+                  "$ref": "#/definitions/Author"
+              }
+          }
+      ],
+        "summary": "Add author to the system",
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/api/author/{id}":{
+      "get": {
+        "tags": [
+          "Author"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the author that we want to mathch",
+            "type": "string"
+          }
+      ],
+        "summary": "Get author by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad request params."
+          },
+          "404": {
+            "description": "Failed. Author not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Author"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the author that we want to update",
+            "type": "string"
+          },
+          {
+              "in": "body",
+              "name": "body",
+              "description": "Author that we want to create",
+              "schema": {
+                  "$ref": "#/definitions/Author"
+              }
+          }
+      ],
+        "summary": "Update author by id",
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          },
+          "404": {
+            "description": "Failed. Author not found."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Author"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the author that we want to mathch",
+            "type": "string"
+          }
+        ],
+        "summary": "Delete author by id",
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad request params."
+          }
+        }
+      }
+    },
+    "/api/book":{
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "summary": "Get all books in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Books"
+            }
+          },
+          "400": {
+            "description": "Failed."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+              "in": "body",
+              "name": "body",
+              "description": "Book that we want to create",
+              "schema": {
+                  "$ref": "#/definitions/Book"
+              }
+          }
+        ],
+        "summary": "Add book to the system",
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/api/book/{id}":{
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the book that we want to mathch",
+            "type": "string"
+          }
+        ],
+        "summary": "Get book by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Failed."
+          },
+          "404": {
+            "description": "Failed. Book Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Book"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the book that we want to mathch",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Book that we want to update",
+            "schema": {
+                "$ref": "#/definitions/Book"
+            }
+        }
+        ],
+        "summary": "Update book by id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Failed."
+          },
+          "404": {
+            "description": "Failed. Book Not Found."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Book"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the book that we want to delete",
+            "type": "string"
+          }
+        ],
+        "summary": "Delete book by id",
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad params."
+          }
+        }
+      }
+    },
+    "/api/book/author":{
+      "post": {
+        "tags": [
+          "Book"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+              "in": "body",
+              "name": "body",
+              "description": "Book that we want to create",
+              "schema": {
+                  "$ref": "#/definitions/BookAuthor"
+              }
+          }
+        ],
+        "summary": "Add bookauthor to the system",
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BookAuthor"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad Request Params."
+          }
+        }
+      }
+    },
+    "/api/auth/singin": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+              "in": "body",
+              "name": "body",
+              "description": "User params",
+              "schema": {
+                  "$ref": "#/definitions/User"
+              }
+          }
+        ],
+        "summary": "Sing in",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Failed."
+          },
+          "401": {
+            "description": "Failed. Authentication failed. Wrong password."
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+              "in": "body",
+              "name": "body",
+              "description": "User that we want to create",
+              "schema": {
+                  "$ref": "#/definitions/User"
+              }
+          }
+        ],
+        "summary": "Register",
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Failed."
+          },
+          "401": {
+            "description": "Failed. User already exists."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "uuid": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Unique Identifier representing a document",
+          "x-primary-key": true
+        }
+      }
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "content": {
+            "type": "integer"
+        },
+        "book_id": {
+            "type": "integer"
+        },
+        "number":{
+            "type": "integer"
+        }
+      }
+    },
+    "Pages": {
+      "type": "object",
+      "properties": {
+        "pages": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Page"
+          }
+        }
+      }
+    },
+    "Book":{
+      "type": "object",
+      "properties": {
+          "title":{
+            "type": "string"
+          },
+          "cost":{
+            "type": "integer"
+          }
+      }
+    },
+    "Books": {
+      "type": "object",
+      "properties": {
+        "books": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Book"
+          }
+        }
+      }
+    },
+    "Author":{
+      "type": "object",
+      "properties": {
+          "name":{
+            "type": "string"
+          },
+          "age":{
+            "type": "integer"
+          }
+      }
+    },
+    "Authors": {
+      "type": "object",
+      "properties": {
+        "books": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Author"
+          }
+        }
+      }
+    },
+    "BookAuthor": {
+      "type": "object",
+      "properties": {
+          "author_id":{
+            "type": "integer"
+          },
+          "book_id":{
+            "type": "integer"
+          }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "username":{
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
