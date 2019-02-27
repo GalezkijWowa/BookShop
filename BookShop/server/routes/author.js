@@ -1,7 +1,7 @@
 ﻿const authorController = require("../controllers").author;
-var express = require("express");
-var router = express.Router();
-var auth = require("../middleware/auth");
+let express = require("express");
+let router = express.Router();
+let auth = require("../middleware/auth");
 
 router.get("/api/author", auth.verifyToken, auth.isAuth, authorController.list);
 router.get("/api/author/:id", auth.verifyToken, auth.isAuth, authorController.getById);

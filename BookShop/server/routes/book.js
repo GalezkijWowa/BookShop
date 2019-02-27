@@ -1,7 +1,7 @@
 ﻿const bookController = require("../controllers").book;
-var express = require("express");
-var router = express.Router();
-var auth = require("../middleware/auth");
+let express = require("express");
+let router = express.Router();
+let auth = require("../middleware/auth");
 
 router.get("/api/book", auth.verifyToken, auth.isAuth, bookController.list);
 router.get("/api/book/:id", auth.verifyToken, auth.isAuth, bookController.getById);

@@ -1,7 +1,7 @@
 ﻿const pageController = require("../controllers").page;
-var express = require("express");
-var router = express.Router();
-var auth = require("../middleware/auth");
+let express = require("express");
+let router = express.Router();
+let auth = require("../middleware/auth");
 
 router.get("/api/page", auth.verifyToken, auth.isAuth, pageController.list);
 router.get("/api/page/:id", auth.verifyToken, auth.isAuth, pageController.getById);

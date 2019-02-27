@@ -1,4 +1,4 @@
-﻿var logger = require("morgan"),
+﻿let logger = require("morgan"),
     cookieParser = require("cookie-parser"),
     bodyParser = require("body-parser"),
     routes = require("../routes"),
@@ -19,7 +19,7 @@ module.exports = function (app, express) {
     app.use(routes);
 
     app.use(function (req, res, next) {
-        var err = new Error("Not Found");
+        let err = new Error("Not Found");
         err.status = 404;
         next(err);
     });
