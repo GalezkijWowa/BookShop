@@ -22,19 +22,19 @@ describe('AUTH/SINGIN', () => {
     });
 });
 
-//describe('AUTH/REGISTER', () => {
-//    it("should register user", (done) => {
-//        const user = {
-//            username: "test1sa423",
-//            password: "123456",
-//        }
-//        chai.request(app)
-//            .post('/api/auth/register')
-//            .send(user)
-//            .end((err, res) => {
-//                res.should.have.status(201);
-//                res.body.should.be.a('object');
-//                done();
-//            });
-//    });
-//});
+describe('AUTH/REGISTER', () => {
+    it("should register user", (done) => {
+        const user = {
+            username: Math.random().toString(36).substr(2, 5),
+            password: "123456",
+        }
+        chai.request(app)
+            .post('/api/auth/register')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(201);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
+});

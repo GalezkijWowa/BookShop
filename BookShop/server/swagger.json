@@ -66,6 +66,7 @@
           {
               "in": "body",
               "name": "body",
+              "required": true,
               "description": "Page that we want to create",
               "schema": {
                   "$ref": "#/definitions/Page"
@@ -102,7 +103,8 @@
               "in": "path",
               "required": true,
               "description": "ID of the page that we want to match",
-              "type": "string"
+              "type": "integer",
+              "format": "int64"
           },
           {
             "in": "body",
@@ -144,7 +146,8 @@
               "in": "path",
               "required": true,
               "description": "ID of the page that we want to delete",
-              "type": "string"
+              "type": "integer",
+              "format": "int64"
           }
         ],
         "summary": "Delete page by id",
@@ -175,7 +178,8 @@
               "in": "path",
               "required": true,
               "description": "ID of the page that we want to match",
-              "type": "string"
+              "type": "integer",
+              "format": "int64"
           }
         ],
         "summary": "Get page by ID",
@@ -231,6 +235,7 @@
           {
               "in": "body",
               "name": "body",
+              "required": true,
               "description": "Author that we want to create",
               "schema": {
                   "$ref": "#/definitions/Author"
@@ -267,7 +272,8 @@
             "in": "path",
             "required": true,
             "description": "ID of the author that we want to mathch",
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
       ],
         "summary": "Get author by id",
@@ -301,7 +307,8 @@
             "in": "path",
             "required": true,
             "description": "ID of the author that we want to update",
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           },
           {
               "in": "body",
@@ -343,7 +350,8 @@
             "in": "path",
             "required": true,
             "description": "ID of the author that we want to mathch",
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "summary": "Delete author by id",
@@ -396,6 +404,7 @@
           {
               "in": "body",
               "name": "body",
+              "required": true,
               "description": "Book that we want to create",
               "schema": {
                   "$ref": "#/definitions/Book"
@@ -432,7 +441,8 @@
             "in": "path",
             "required": true,
             "description": "ID of the book that we want to mathch",
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "summary": "Get book by id",
@@ -466,7 +476,8 @@
             "in": "path",
             "required": true,
             "description": "ID of the book that we want to mathch",
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           },
           {
             "in": "body",
@@ -508,7 +519,8 @@
             "in": "path",
             "required": true,
             "description": "ID of the book that we want to delete",
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "summary": "Delete book by id",
@@ -539,6 +551,7 @@
           {
               "in": "body",
               "name": "body",
+              "required": true,
               "description": "Book that we want to create",
               "schema": {
                   "$ref": "#/definitions/BookAuthor"
@@ -568,6 +581,7 @@
           {
               "in": "body",
               "name": "body",
+              "required": true,
               "description": "User params",
               "schema": {
                   "$ref": "#/definitions/User"
@@ -600,6 +614,7 @@
           {
               "in": "body",
               "name": "body",
+              "required": true,
               "description": "User that we want to create",
               "schema": {
                   "$ref": "#/definitions/User"
@@ -639,7 +654,7 @@
       "type": "object",
       "properties": {
         "content": {
-            "type": "integer"
+            "type": "string"
         },
         "book_id": {
             "type": "integer"

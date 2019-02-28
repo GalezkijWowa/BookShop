@@ -1,4 +1,5 @@
 ﻿const pageService = require("../services/pageService");
+const bookService = require("../services/bookService");
 
 function list(req, res) {
     return pageService
@@ -49,7 +50,7 @@ function add(req, res) {
 }
 
 function update(req, res) {
-    pageService.findById(req.body.book_id)
+    bookService.findById(req.body.book_id)
         .then(function (book) {
             if (book) {
                 return pageService
@@ -78,7 +79,7 @@ function update(req, res) {
 }
 
 function del(req, res) {
-    return Page
+    return pageService
         .findById(req.params.id)
         .then(page => {
             if (!page) {
@@ -86,8 +87,8 @@ function del(req, res) {
                     message: "Page Not Found",
                 });
             }
-            return page
-                .destroy()
+            return pageService
+                .destroy(page)
                 .then(() => res.status(204).send())
                 .catch((error) => res.status(400).send(error));
         })

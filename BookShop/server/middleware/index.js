@@ -1,9 +1,7 @@
 ﻿let logger = require("morgan"),
     cookieParser = require("cookie-parser"),
     bodyParser = require("body-parser"),
-    routes = require("../routes"),
-    session = require("express-session");
-
+    routes = require("../routes");
 
 module.exports = function (app, express) {
     app.use(logger("dev"));
