@@ -3,15 +3,12 @@ const chaiHttp = require('chai-http');
 const app = require('../app');
 const should = chai.should();
 chai.use(chaiHttp)
-let path = require('path');
-let dotEnvPath = path.resolve('./.env');
-require('dotenv').config({ path: dotEnvPath });
 
 
-describe('/POST singin user', () => {
+describe('AUTH/SINGIN', () => {
     it("should singin user", (done) => {
         const user = {
-            username: "admin",
+            username: "test",
             password: "123456",
         }
         chai.request(app)
@@ -19,10 +16,25 @@ describe('/POST singin user', () => {
             .send(user)
             .end((err, res) => {
                 res.should.have.status(200);
-                //res.body.should.be.a('object');
-                //res.body.should.have.property('message');
-                //res.body.should.have.property('statusType').eq('error');
+                res.body.should.be.a('object');
                 done();
             });
     });
 });
+
+//describe('AUTH/REGISTER', () => {
+//    it("should register user", (done) => {
+//        const user = {
+//            username: "test1sa423",
+//            password: "123456",
+//        }
+//        chai.request(app)
+//            .post('/api/auth/register')
+//            .send(user)
+//            .end((err, res) => {
+//                res.should.have.status(201);
+//                res.body.should.be.a('object');
+//                done();
+//            });
+//    });
+//});

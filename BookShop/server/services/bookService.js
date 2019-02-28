@@ -57,9 +57,18 @@ function bookAuthorFind(book_id, author_id) {
     });
 }
 
+function bookAuthorFindById(id) {
+    return BookAuthor
+        .findById(id);
+}
+
 function bookAuthorCreate(book_id, author_id) {
     return BookAuthor
         .create({ book_id, author_id })
+}
+
+function bookAuthorDestroy(bookAuthor) {
+    return bookAuthor.destroy();
 }
 
 module.exports.findAll = findAll;
@@ -69,3 +78,5 @@ module.exports.update = update;
 module.exports.destroy = destroy;
 module.exports.bookAuthorFind = bookAuthorFind;
 module.exports.bookAuthorCreate = bookAuthorCreate;
+module.exports.bookAuthorFindById = bookAuthorFindById;
+module.exports.bookAuthorDestroy = bookAuthorDestroy;

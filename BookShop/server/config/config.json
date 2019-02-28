@@ -14,5 +14,6 @@
     "dialect": "postgres"
   },
   "saltWordFactor": 10,
-  "jwtExpires": 2592000
+  "jwtExpires": 2592000,
+  "jwtSecretKey" : "secret"
 }

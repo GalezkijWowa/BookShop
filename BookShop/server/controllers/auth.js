@@ -14,10 +14,8 @@ function singIn(req, res) {
             }
             user.comparePassword(req.body.password, (err, isMatch) => {
                 if (isMatch && !err) {
-                    //var token = jwt.sign(JSON.parse(JSON.stringify(user)), process.env.JWT_SERCRET_KEY, { expiresIn: config.get("jwtExpires") });
-                    //jwt.verify(token, process.env.JWT_SERCRET_KEY, function (err, data) {
-                    let token = jwt.sign(JSON.parse(JSON.stringify(user)), "test", { expiresIn: config.get("jwtExpires") });
-                    jwt.verify(token, "test", function (err, data) {
+                    let token = jwt.sign(JSON.parse(JSON.stringify(user)), config.get("jwtSecretKey"), { expiresIn: config.get("jwtExpires") });  // jwtExpiresmust migrate to env variables(problem with test)
+                    jwt.verify(token, config.get("jwtSecretKey"), function (err, data) {
                         console.log(err, data);
                     });
                     res.json({ success: true, token: "JWT " + token });

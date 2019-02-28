@@ -1,7 +1,5 @@
-﻿const Author = require("../database/models").Author;
-const Book = require("../database/models").Book;
+﻿const Book = require("../database/models").Book;
 const Page = require("../database/models").Page;
-
 
 
 function findAll() {

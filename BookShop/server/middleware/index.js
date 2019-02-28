@@ -10,11 +10,6 @@ module.exports = function (app, express) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
-    app.use(session({
-        secret: "mysecret",
-        resave: false,
-        saveUninitialized: true
-    }));
 
     app.use(routes);
 
