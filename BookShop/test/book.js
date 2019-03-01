@@ -9,11 +9,6 @@ const config = require("../server/config");
 
 const token = config.get("jwtKeyForTesting"); 
 
-const userCredentials = {
-    username: 'test',
-    password: '123456'
-}
-
 describe('BOOK/GET', () => {
     it('it should Get all books', (done) => {
         chai.request(app)
@@ -138,7 +133,6 @@ describe('BOOK/AUTHOR/POST', () => {
                         done();
                         bookService.findById(res.body.id)
                             .then(function (bookauthor) {
-                                console.log(bookauthor);
                                 bookService.bookAuthorDestroy(bookauthor);
                             });
                         Promise.all([

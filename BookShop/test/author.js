@@ -8,11 +8,6 @@ const authorService = require("../server/services/authorService");
 const config = require("../server/config");
 const token = config.get("jwtKeyForTesting"); 
 
-const userCredentials = {
-    username: 'test',
-    password: '123456'
-}
-
 describe('AUTHOR/GET', () => {
     it('it should Get all authors', (done) => {
         chai.request(app)
