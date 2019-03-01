@@ -1,14 +1,15 @@
 ﻿const chai = require('chai');
 const chaiHttp = require('chai-http');
+chai.use(chaiHttp)
 const app = require('../app');
 const should = chai.should();
-chai.use(chaiHttp)
+
 
 
 describe('AUTH/SINGIN', () => {
     it("should singin user", (done) => {
         const user = {
-            username: "test",
+            username: "admin",
             password: "123456",
         }
         chai.request(app)

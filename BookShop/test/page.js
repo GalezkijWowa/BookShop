@@ -5,15 +5,35 @@ const should = chai.should();
 chai.use(chaiHttp);
 const pageService = require("../server/services/pageService");
 const config = require("../server/config");
+let token;// = config.get("jwtKeyForTesting");
 
-const token = config.get("jwtKeyForTesting"); 
-
-const userCredentials = {
-    username: 'test',
-    password: '123456'
-}
+const authService = require("../server/services/authService");
 
 describe('PAGE/GET page', () => {
+    before(function () {
+        let rootUser;
+        const testUserName = "USER FOR DATABASE TEST";
+        var tokenAAA =
+            authService
+                .findByName(testUserName)
+                .then(function (user) {
+                    if (!user) {
+                        authService.create(testUserName, 123456)
+                            .then(function (createdUser) {
+                                rootUser = createdUser;
+                            });
+                    }
+                    else {
+                        rootUser = user;
+                    }
+                    return "JWT " + authService.getToken(rootUser)
+                });
+        tokenAAA.then(function (t) {
+            token = t;
+        });
+    });
+
+
     it('it should Get all pages', (done) => {
         chai.request(app)
             .get('/api/page')
@@ -27,11 +47,27 @@ describe('PAGE/GET page', () => {
 });
 
 describe('PAGE/POST', () => {
+    let pageId;
+    //let page;
+    //before(function () {
+    //    page = {
+    //        content: "Test page content",
+    //        number: 1001,
+    //        book_id: 5
+    //    };
+    //});
+    //after(function () {
+    //    pageService.findById(pageId)
+    //        .then(function (page) {
+    //            pageService.destroy(page)
+    //                .then(() => { });
+    //        });
+    //});
     it('it sould post the page info', (done) => {
         const page = {
             content: "Test page content",
-            number: 100,
-            book_id: 5
+            number: 15,
+            book_id: 1
         };
         chai.request(app)
             .post('/api/page')
@@ -40,12 +76,8 @@ describe('PAGE/POST', () => {
             .end((err, res) => {
                 res.should.have.status(201);
                 res.body.should.be.a('object');
+                pageId = res.body.id;
                 done();
-                pageService.findById(res.body.id)
-                    .then(function (page) {
-                        pageService.destroy(page)
-                            .then(() => { });
-                    });
             });
     });
 });
