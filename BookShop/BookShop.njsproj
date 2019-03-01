@@ -47,7 +47,7 @@
     <Compile Include="server\controllers\page.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="server\middleware\index.js">
+    <Compile Include="server\index.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="server\database\migrations\20190221205315-create-page.js" />
