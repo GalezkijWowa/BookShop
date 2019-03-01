@@ -4,8 +4,9 @@ const app = require('../app');
 const should = chai.should();
 chai.use(chaiHttp);
 const pageService = require("../server/services/pageService");
+const config = require("../server/config");
 
-const token = "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsInVzZXJuYW1lIjoidGVzdCIsInBhc3N3b3JkIjoiJDJhJDEwJEdhQTFPS0ZmTm0wQXBiUDJaL3pvWi5PTEJMVWhycEUzU1dyZXdNL3BjMTZSdHJ2OXptWi9tIiwiY3JlYXRlZEF0IjoiMjAxOS0wMi0yNlQxNDowNTo1NC4xMjNaIiwidXBkYXRlZEF0IjoiMjAxOS0wMi0yNlQxNDowNTo1NC4xMjNaIiwiaWF0IjoxNTUxMzAxNTA4LCJleHAiOjE1NTM4OTM1MDh9.wupkX9LEF0hVouW-a-DC9lROuTV8kitRQc3iJFOPp34";
+const token = config.get("jwtKeyForTesting"); 
 
 const userCredentials = {
     username: 'test',
