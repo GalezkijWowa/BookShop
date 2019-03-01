@@ -1,5 +1,4 @@
-﻿const jwt = require("jsonwebtoken");
-const config = require("../config");
+﻿const authService = require("../services/authService");
 
 function verifyToken(req, res, next) {
     const jwtHeader = req.headers["authorization"];
@@ -14,15 +13,14 @@ function verifyToken(req, res, next) {
 }
 
 function isAuth(req, res, next) {
-    jwt.verify(req.token, config.get("jwtSecretKey"), (err) => {  //jwtExpires must migrate to env variables(problem with test)
-        if (err) {
-            res.sendStatus(403);
-        } else {
-            next();
-        }
-    });
-}
+    let result = authService.verifyToken(req.token);
 
+    if (result.message) {
+        res.sendStatus(403);
+    } else {
+        next();
+    }
+}
 
 module.exports.verifyToken = verifyToken;
 module.exports.isAuth = isAuth;

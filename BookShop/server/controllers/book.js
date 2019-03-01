@@ -74,7 +74,7 @@ function addBookAuthor(req, res) {
         bookService.bookAuthorFind(req.body.book_id, req.body.author_id),
         bookService.findById(req.body.book_id),
         authorService.findById(req.body.author_id)
-    ]).then(function (results) {
+    ]).then((results) => {
         if (results[0]) {
             res.status(400).send({ msg: "Relationship already exists." });
         }

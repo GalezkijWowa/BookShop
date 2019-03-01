@@ -14,10 +14,7 @@ function singIn(req, res) {
             }
             user.comparePassword(req.body.password, (err, isMatch) => {
                 if (isMatch && !err) {
-                    let token = jwt.sign(JSON.parse(JSON.stringify(user)), config.get("jwtSecretKey"), { expiresIn: config.get("jwtExpires") });  // jwtExpiresmust migrate to env variables(problem with test)
-                    jwt.verify(token, config.get("jwtSecretKey"), function (err, data) {
-                        console.log(err, data);
-                    });
+                    let token = authService.getToken(user);
                     res.json({ success: true, token: "JWT " + token });
                 } else {
                     res.status(401).send({ success: false, msg: "Authentication failed. Wrong password." });
@@ -30,7 +27,7 @@ function singIn(req, res) {
 function register(req, res) {
     authService
         .findByName(req.body.username)
-        .then(function (user) {
+        .then((user) => {
             if (!user) {
                 authService
                     .create(req.body.username, req.body.password)

@@ -15,5 +15,7 @@
   },
   "saltWordFactor": 10,
   "jwtExpires": 2592000,
-  "jwtSecretKey" : "secret"
+  "jwtSecretKey": "secret",
+  "testUsername": "USER TO DATABASE TEST",
+  "testPassword": "123456"
 }

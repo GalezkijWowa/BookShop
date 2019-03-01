@@ -30,7 +30,7 @@ function add(req, res) {
         Promise.all([
             pageService.find( req.body.number, req.body.book_id),
             pageService.findById(req.body.book_id)
-        ]).then(function (results) {
+        ]).then((results) => {
             if (results[0]) {
                 res.status(400).send({
                     message: "Page already exists",
@@ -51,7 +51,7 @@ function add(req, res) {
 
 function update(req, res) {
     bookService.findById(req.body.book_id)
-        .then(function (book) {
+        .then((book) => {
             if (book) {
                 return pageService
                     .findById(req.params.id)
