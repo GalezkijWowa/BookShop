@@ -27,7 +27,7 @@ function singIn(req, res) {
 function register(req, res) {
     authService
         .findByName(req.body.username)
-        .then(function (user) {
+        .then((user) => {
             if (!user) {
                 authService
                     .create(req.body.username, req.body.password)
