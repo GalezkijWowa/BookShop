@@ -36,6 +36,36 @@ describe('AUTH/SINGIN', () => {
                 done();
             });
     });
+
+    it("shouldn't singin user", (done) => {
+        const user = {
+            username: testUserName,
+            password: "SOME WRONG PASSWORD Ksdpofjsodnipfhnsdoifbsduyfbasd9ufgasdiufgy"
+        }
+        chai.request(app)
+            .post('/api/auth/singin')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(401);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
+
+    it("shouldn't singin user", (done) => {
+        const user = {
+            username: "SOME WRONG USER NAME sldkjfsldkjfsodfnjsfd",
+            password: userpassword
+        }
+        chai.request(app)
+            .post('/api/auth/singin')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                done();
+            });
+    });
 });
 
 describe('AUTH/REGISTER', () => {
@@ -49,6 +79,36 @@ describe('AUTH/REGISTER', () => {
             .send(user)
             .end((err, res) => {
                 res.should.have.status(201);
+                res.body.should.be.a('object');
+                createdUser = res.user;
+                done();
+            });
+    });
+
+    it("shouldn't register user", (done) => {
+        const user = {
+            username: Math.random().toString(36).substr(2, 5)
+        }
+        chai.request(app)
+            .post('/api/auth/register')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                createdUser = res.user;
+                done();
+            });
+    });
+
+    it("shouldn't register user", (done) => {
+        const user = {
+            password: config.get("testPassword")
+        }
+        chai.request(app)
+            .post('/api/auth/register')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(400);
                 res.body.should.be.a('object');
                 createdUser = res.user;
                 done();
