@@ -46,15 +46,8 @@ describe('AUTHOR', () => {
     describe('AUTHOR/POST', () => {
         let tempAuthorId;
         let author;
-        before((done) => {
-            author = {
-                name: "Husne Ara",
-                age: 10
-            };
-            done();
-        });
-
-        after((done) => {
+        
+        afterEach((done) => {
             authorService.findById(tempAuthorId)
                 .then((author) => {
                     authorService.destroy(author)
@@ -64,6 +57,10 @@ describe('AUTHOR', () => {
         });
 
         it('it sould post the author info', (done) => {
+            author = {
+                name: "Husne Ara",
+                age: 10
+            };
             chai.request(app)
                 .post('/api/author')
                 .set("Authorization", token)
@@ -75,11 +72,60 @@ describe('AUTHOR', () => {
                     done();
                 });
         });
+
+        it('it souldn\'t post the author info', (done) => {
+            author = {
+                name: "Husne Ara",
+                age: -12
+            };
+            chai.request(app)
+                .post('/api/author')
+                .set("Authorization", token)
+                .send(author)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    tempAuthorId = res.body.id;
+                    done();
+                });
+        });
+
+        it('it souldn\'t post the author info', (done) => {
+            author = {
+                name: "Husne Ara",
+            };
+            chai.request(app)
+                .post('/api/author')
+                .set("Authorization", token)
+                .send(author)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    tempAuthorId = res.body.id;
+                    done();
+                });
+        });
+
+        it('it souldn\'t post the author info', (done) => {
+            author = {
+                age: 24
+            };
+            chai.request(app)
+                .post('/api/author')
+                .set("Authorization", token)
+                .send(author)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    tempAuthorId = res.body.id;
+                    done();
+                });
+        });
     });
 
     describe('AUTHOR/PUT/:id', () => {
         let tempAuthorId;
-        before((done) => {
+        beforeEach((done) => {
             authorService.create("Vasilii A. for update", 31)
                 .then((author) => {
                     tempAuthorId = author.id;
@@ -87,7 +133,7 @@ describe('AUTHOR', () => {
                 });
         });
 
-        after((done) => {
+        afterEach((done) => {
             authorService.findById(tempAuthorId)
                 .then((author) => {
                     authorService.destroy(author)
@@ -98,7 +144,7 @@ describe('AUTHOR', () => {
         
         it("should update author info", (done) => {
             const author = {
-                name: " Husne Ara UPDATED",
+                name: "Husne Ara UPDATED",
                 age: 15
             };
             chai.request(app)
@@ -107,6 +153,68 @@ describe('AUTHOR', () => {
                 .send(author)
                 .end((err, res) => {
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn\'t update author info", (done) => {
+            const author = {
+                age: 15
+            };
+            chai.request(app)
+                .put('/api/author/' + tempAuthorId)
+                .set("Authorization", token)
+                .send(author)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn\'t update author info", (done) => {
+            const author = {
+                name: "Husne Ara UPDATED"
+            };
+            chai.request(app)
+                .put('/api/author/' + tempAuthorId)
+                .set("Authorization", token)
+                .send(author)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("should update author info", (done) => {
+            const author = {
+                name: "Husne Ara UPDATED",
+                age: -15
+            };
+            chai.request(app)
+                .put('/api/author/' + tempAuthorId)
+                .set("Authorization", token)
+                .send(author)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("should update author info", (done) => {
+            const author = {
+                name: "Husne Ara UPDATED",
+                age: 15
+            };
+            chai.request(app)
+                .put('/api/author/' + 12344321)
+                .set("Authorization", token)
+                .send(author)
+                .end((err, res) => {
+                    res.should.have.status(404);
                     res.body.should.be.a('object');
                     done();
                 });
@@ -123,6 +231,15 @@ describe('AUTHOR', () => {
                 });
         });
 
+        afterEach((done) => {
+            authorService.findById(tempAuthorId)
+                .then((author) => {
+                    authorService.destroy(author)
+                        .then(() => { });
+                });
+            done();
+        });
+
         it("should delete the author", (done) => {
             chai.request(app)
                 .delete('/api/author/' + tempAuthorId)
@@ -132,11 +249,21 @@ describe('AUTHOR', () => {
                     done();
                 });
         });
+
+        it("shouldn\'t delete the author", (done) => {
+            chai.request(app)
+                .delete('/api/author/' + 1234311)
+                .set("Authorization", token)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    done();
+                });
+        });
     });
 
     describe('AUTHOR/GET/:id', () => {
         let tempAuthorId;
-        before((done) => {
+        beforeEach((done) => {
             authorService.create("Vasilii A. for update", 31)
                 .then((author) => {
                     tempAuthorId = author.id;
@@ -144,7 +271,7 @@ describe('AUTHOR', () => {
                 });
         });
 
-        after((done) => {
+        afterEach((done) => {
             authorService.findById(tempAuthorId)
                 .then((author) => {
                     authorService.destroy(author)
@@ -167,6 +294,20 @@ describe('AUTHOR', () => {
                         });
                 });
         });
-    });
 
+        it("shouldn't get author info", (done) => {
+            authorService.create("Vasilii A.", 31)
+                .then((author) => {
+                    authorId = author.id;
+                    chai.request(app)
+                        .get('/api/author/' + 1234)
+                        .set("Authorization", token)
+                        .end((err, res) => {
+                            res.should.have.status(404);
+                            res.body.should.be.a('object');
+                            done();
+                        });
+                });
+        });
+    });
 });

@@ -34,20 +34,25 @@ function add(req, res) {
 }
 
 function update(req, res) {
-    return authorService
-        .findById(req.params.id)
-        .then(author => {
-            if (!author) {
-                return res.status(404).send({
-                    message: "Author Not Found",
-                });
-            }
-            return authorService
-                .update(author, req.body.name, req.body.age)
-                .then(() => res.status(200).send(author))
-                .catch((error) => res.status(400).send(error));
-        })
-        .catch((error) => res.status(400).send(error));
+    if (!req.body.age || req.body.age < 0) res.status(400).send({
+        message: "Age undefined or less then 0",
+    });
+    else {
+        return authorService
+            .findById(req.params.id)
+            .then(author => {
+                if (!author) {
+                    return res.status(404).send({
+                        message: "Author Not Found",
+                    });
+                }
+                return authorService
+                    .update(author, req.body.name, req.body.age)
+                    .then(() => res.status(200).send(author))
+                    .catch((error) => res.status(400).send(error));
+            })
+            .catch((error) => res.status(400).send(error));
+    }
 }
 
 function del(req, res) {
