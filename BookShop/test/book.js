@@ -47,7 +47,7 @@ describe('BOOK', () => {
 
     describe('BOOK/POST', () => {
         let tempBookId;
-        after((done) => {
+        afterEach((done) => {
             bookService.findById(tempBookId)
                 .then((book) => {
                     bookService.destroy(book)
@@ -72,11 +72,60 @@ describe('BOOK', () => {
                     done();
                 });
         });
+
+        it('it shouldn\'t post the book info', (done) => {
+            const book = {
+                title: "Magica",
+                cost: -10
+            };
+            chai.request(app)
+                .post('/api/book')
+                .set("Authorization", token)
+                .send(book)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    tempBookId = res.body.id;
+                    done();
+                });
+        });
+
+        it('it shouldn\'t post the book info', (done) => {
+            const book = {
+                cost: -10
+            };
+            chai.request(app)
+                .post('/api/book')
+                .set("Authorization", token)
+                .send(book)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    tempBookId = res.body.id;
+                    done();
+                });
+        });
+
+        it('it shouldn\'t post the book info', (done) => {
+            const book = {
+                title: "Magica"
+            };
+            chai.request(app)
+                .post('/api/book')
+                .set("Authorization", token)
+                .send(book)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    tempBookId = res.body.id;
+                    done();
+                });
+        });
     });
 
     describe('BOOK/PUT/:id', () => {
         let tempBookId;
-        before((done) => {
+        beforeEach((done) => {
             bookService.create("Magica for update", 150)
                 .then((book) => {
                     tempBookId = book.id;
@@ -84,7 +133,7 @@ describe('BOOK', () => {
                 });
             
         });
-        after((done) => {
+        afterEach((done) => {
             bookService.findById(tempBookId)
                 .then((book) => {
                     bookService.destroy(book)
@@ -104,6 +153,67 @@ describe('BOOK', () => {
                 .send(book)
                 .end((err, res) => {
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("should update book info", (done) => {
+            const book = {
+                title: " Magica UPDATED"
+            };
+            chai.request(app)
+                .put('/api/book/' + tempBookId)
+                .set("Authorization", token)
+                .send(book)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("should update book info", (done) => {
+            const book = {
+                cost: 15
+            };
+            chai.request(app)
+                .put('/api/book/' + tempBookId)
+                .set("Authorization", token)
+                .send(book)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldb't update book info", (done) => {
+            const book = {
+                cost: -15
+            };
+            chai.request(app)
+                .put('/api/book/' + tempBookId)
+                .set("Authorization", token)
+                .send(book)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn't update book info", (done) => {
+            const book = {
+                title: " Magica UPDATED",
+                cost: 15
+            };
+            chai.request(app)
+                .put('/api/book/' + 123321123)
+                .set("Authorization", token)
+                .send(book)
+                .end((err, res) => {
+                    res.should.have.status(404);
                     res.body.should.be.a('object');
                     done();
                 });
@@ -134,7 +244,7 @@ describe('BOOK', () => {
 
     describe('BOOK/GET/:id', () => {
         let tempBookId;
-        before((done) => {
+        beforeEach((done) => {
             bookService.create("Magica for update", 150)
                 .then((book) => {
                     tempBookId = book.id;
@@ -142,7 +252,7 @@ describe('BOOK', () => {
                 });
 
         });
-        after((done) => {
+        afterEach((done) => {
             bookService.findById(tempBookId)
                 .then((book) => {
                     bookService.destroy(book)
@@ -160,6 +270,17 @@ describe('BOOK', () => {
                     done();
                 });
         });
+
+        it("should get book info", (done) => {
+            chai.request(app)
+                .get('/api/book/' + 544534)
+                .set("Authorization", token)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
     });
 
     describe('BOOK/AUTHOR/POST', () => {
@@ -168,7 +289,7 @@ describe('BOOK', () => {
 
         let tempAuthor;
         let tempBook;
-        before((done) => {
+        beforeEach((done) => {
             Promise.all([
                 authorService.create("Vasilii A. for update", 31),
                 bookService.create("Magica for update", 150)
@@ -183,7 +304,7 @@ describe('BOOK', () => {
                     done();
                 });
         });
-        after((done) => {
+        afterEach((done) => {
             bookService.findById(tempBookauthorId)
                 .then((ba) => {
                     bookService.bookAuthorDestroy(ba);
@@ -202,6 +323,34 @@ describe('BOOK', () => {
                 .send(bookauthor)
                 .end((err, res) => {
                     res.should.have.status(201);
+                    res.body.should.be.a('object');
+                    tempBookauthorId = res.body.id;
+                    done();
+                });
+        });
+
+        it("shouldn't add book author", (done) => {
+            bookauthor.author_id = 123123;
+            chai.request(app)
+                .post('/api/book/author')
+                .set("Authorization", token)
+                .send(bookauthor)
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    res.body.should.be.a('object');
+                    tempBookauthorId = res.body.id;
+                    done();
+                });
+        });
+
+        it("shouldn't add book author", (done) => {
+            bookauthor.book_id = 123123;
+            chai.request(app)
+                .post('/api/book/author')
+                .set("Authorization", token)
+                .send(bookauthor)
+                .end((err, res) => {
+                    res.should.have.status(404);
                     res.body.should.be.a('object');
                     tempBookauthorId = res.body.id;
                     done();
