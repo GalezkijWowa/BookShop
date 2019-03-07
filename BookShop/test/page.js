@@ -48,20 +48,15 @@ describe('PAGE', () => {
         let pageId;
         let page;
         let tempBook;
-        before((done) => {
+        beforeEach((done) => {
             bookService.create("TestTitle", 150)
                 .then((book) => {
                     tempBook = book;
-                    page = {
-                        content: "Test page content",
-                        number: 1,
-                        book_id: book.id
-                    };
                     done();
                 });
         });
 
-        after((done) => {
+        afterEach((done) => {
             pageService.findById(pageId)
                 .then((page) => {
                     pageService.destroy(page)
@@ -71,7 +66,12 @@ describe('PAGE', () => {
                 .then(() => {});
             done();
         });
-        it('it sould post the page info', (done) => {
+        it('it should post the page info', (done) => {
+            page = {
+                content: "Test page content",
+                number: 1,
+                book_id: tempBook.id
+            };
             chai.request(app)
                 .post('/api/page')
                 .set("Authorization", token)
@@ -83,12 +83,81 @@ describe('PAGE', () => {
                     done();
                 });
         });
+
+        it('it shouldn\t post the page info', (done) => {
+            page = {
+                number: 1,
+                book_id: tempBook.id
+            };
+            chai.request(app)
+                .post('/api/page')
+                .set("Authorization", token)
+                .send(page)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    pageId = res.body.id;
+                    done();
+                });
+        });
+
+        it('it shouldn\t post the page info', (done) => {
+            page = {
+                content: "Test page content",
+                book_id: tempBook.id
+            };
+            chai.request(app)
+                .post('/api/page')
+                .set("Authorization", token)
+                .send(page)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    pageId = res.body.id;
+                    done();
+                });
+        });
+
+        it('it shouldn\t post the page info', (done) => {
+            page = {
+                content: "Test page content",
+                number: 1
+            };
+            chai.request(app)
+                .post('/api/page')
+                .set("Authorization", token)
+                .send(page)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    pageId = res.body.id;
+                    done();
+                });
+        });
+
+        it('it shouldn\t post the page info', (done) => {
+            page = {
+                content: "Test page content",
+                number: -41,
+                book_id: tempBook.id
+            };
+            chai.request(app)
+                .post('/api/page')
+                .set("Authorization", token)
+                .send(page)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    pageId = res.body.id;
+                    done();
+                });
+        });
     });
 
     describe('PAGE/PUT/:id page', () => {
         let tempPage;
         let tempBook;
-        before((done) => {
+        beforeEach((done) => {
             bookService.create("TestTitle", 100)
                 .then((book) => {
                     tempBook = book;
@@ -100,7 +169,7 @@ describe('PAGE', () => {
                 });
         });
 
-        after((done) => {
+        afterEach((done) => {
             bookService.destroy(tempBook)
                 .then(() => { });
 
@@ -112,8 +181,73 @@ describe('PAGE', () => {
         it("should update page info", (done) => {
             const page = {
                 content: "Test page content UPDATED",
-                number: 3,
-                book_id: 2
+                number: 1,
+                book_id: tempBook.id
+            };
+            chai.request(app)
+                .put('/api/page/' + tempPage.id)
+                .set("Authorization", token)
+                .send(page)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn't update page info", (done) => {
+            const page = {
+                content: "Test page content UPDATED",
+                book_id: tempBook.id
+            };
+            chai.request(app)
+                .put('/api/page/' + tempPage.id)
+                .set("Authorization", token)
+                .send(page)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn't update page info", (done) => {
+            const page = {
+                content: "Test page content UPDATED",
+                number: 1
+            };
+            chai.request(app)
+                .put('/api/page/' + tempPage.id)
+                .set("Authorization", token)
+                .send(page)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn't update page info", (done) => {
+            const page = {
+                content: "Test page content UPDATED",
+                number: -31,
+                book_id: tempBook.id
+            };
+            chai.request(app)
+                .put('/api/page/' + tempPage.id)
+                .set("Authorization", token)
+                .send(page)
+                .end((err, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn't update page info", (done) => {
+            const page = {
+                number: 1,
+                book_id: tempBook.id
             };
             chai.request(app)
                 .put('/api/page/' + tempPage.id)
@@ -130,7 +264,7 @@ describe('PAGE', () => {
     describe('PAGE/DELETE/:id', () => {
         let tempPage;
         let tempBook;
-        before((done) => {
+        beforeEach((done) => {
             bookService.create("TestTitle", 100)
                 .then((book) => {
                     tempBook = book;
@@ -142,7 +276,7 @@ describe('PAGE', () => {
                 });
         });
 
-        after((done) => {
+        afterEach((done) => {
             bookService.destroy(tempBook)
                 .then(() => { });
             done();
@@ -154,6 +288,16 @@ describe('PAGE', () => {
                 .set("Authorization", token)
                 .end((err, res) => {
                     res.should.have.status(204);
+                    done();
+                });
+        });
+
+        it("shouldn't get page info", (done) => {
+            chai.request(app)
+                .delete('/api/page/' + 123345345)
+                .set("Authorization", token)
+                .end((err, res) => {
+                    res.should.have.status(404);
                     done();
                 });
         });
@@ -189,6 +333,17 @@ describe('PAGE', () => {
                 .set("Authorization", token)
                 .end((err, res) => {
                     res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn't get page info", (done) => {
+            chai.request(app)
+                .get('/api/page/' + 123123)
+                .set("Authorization", token)
+                .end((err, res) => {
+                    res.should.have.status(404);
                     res.body.should.be.a('object');
                     done();
                 });

@@ -36,20 +36,27 @@ function add(req, res) {
 }
 
 function update(req, res) {
-    return bookService
-        .findById(req.params.id)
-        .then(book => {
-            if (!book) {
-                return res.status(404).send({
-                    message: "Book Not Found",
-                });
-            }
-            return bookService
-                .update(book, req.body.title, req.body.cost)
-                .then(() => res.status(200).send(book))
-                .catch((error) => res.status(400).send(error));
-        })
-        .catch((error) => res.status(400).send(error));
+    if (req.body.cost && req.body.cost < 0) res.status(400).send({
+        message: "Cost less than 0",
+    });
+    else {
+        return bookService
+            .findById(req.params.id)
+            .then(book => {
+                if (!book) {
+                    return res.status(404).send({
+                        message: "Book Not Found",
+                    });
+                }
+                let tempTitle = req.body.title ? req.body.title : book.title;
+                let tempCost = req.body.cost ? parseInt(req.body.cost) : book.cost;
+                return bookService
+                    .update(book, tempTitle, tempCost)
+                    .then(() => res.status(200).send(book))
+                    .catch((error) => res.status(400).send(error));
+            })
+            .catch((error) => res.status(400).send(error));
+    }
 }
 
 function del(req, res) {

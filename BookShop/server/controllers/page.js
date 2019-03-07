@@ -50,9 +50,12 @@ function add(req, res) {
 }
 
 function update(req, res) {
+    if (req.body.number && req.body.number < 0) res.status(400).send({
+        message: "Page less then 0",
+    });
     bookService.findById(req.body.book_id)
         .then((book) => {
-            if (book) {
+            if (req.body.book_id === undefined || book) {
                 return pageService
                     .findById(req.params.id)
                     .then(page => {
@@ -61,18 +64,20 @@ function update(req, res) {
                                 message: "Page Not Found",
                             });
                         }
-                        return page
-                            .update({
-                                content: req.body.content,
-                                number: req.body.number,
-                                book_id: req.body.book_id
-                            })
-                            .then(() => res.status(200).send(page))
-                            .catch((error) => res.status(400).send(error));
-                    })
+                        else {
+                            let tempContent = req.body.content ? req.body.content : page.content;
+                            let tempNumber = req.body.number ? req.body.number : page.number;
+                            let tempBookId = req.body.book_id ? req.body.book_id : page.book_id;
+
+                            return pageService
+                                .update(page, tempContent, tempNumber, tempBookId)
+                                .then(() => res.status(200).send(page))
+                                .catch((error) => res.status(400).send(error));
+                        }
+                    });
             }
             else {
-                res.status(404).send({ msg: "Book not found." });
+                res.status(400).send({ msg: "Book not found. Bas Post data" });
             }
         })
         .catch((error) => res.status(400).send(error));

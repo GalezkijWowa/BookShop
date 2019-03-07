@@ -56,7 +56,7 @@ describe('AUTHOR', () => {
             done();
         });
 
-        it('it sould post the author info', (done) => {
+        it('it should post the author info', (done) => {
             author = {
                 name: "Husne Ara",
                 age: 10
@@ -73,7 +73,7 @@ describe('AUTHOR', () => {
                 });
         });
 
-        it('it souldn\'t post the author info', (done) => {
+        it('it shouldn\'t post the author info', (done) => {
             author = {
                 name: "Husne Ara",
                 age: -12
@@ -90,7 +90,7 @@ describe('AUTHOR', () => {
                 });
         });
 
-        it('it souldn\'t post the author info', (done) => {
+        it('it shouldn\'t post the author info', (done) => {
             author = {
                 name: "Husne Ara",
             };
@@ -106,7 +106,7 @@ describe('AUTHOR', () => {
                 });
         });
 
-        it('it souldn\'t post the author info', (done) => {
+        it('it shouldn\'t post the author info', (done) => {
             author = {
                 age: 24
             };
@@ -143,8 +143,23 @@ describe('AUTHOR', () => {
         });
         
         it("should update author info", (done) => {
+            let author = {
+                name: "Husne Ara",
+                age: 10
+            };
+            chai.request(app)
+                .put('/api/author/' + tempAuthorId)
+                .set("Authorization", token)
+                .send(author)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    done();
+                });
+        });
+
+        it("shouldn update author info", (done) => {
             const author = {
-                name: "Husne Ara UPDATED",
                 age: 15
             };
             chai.request(app)
@@ -158,22 +173,7 @@ describe('AUTHOR', () => {
                 });
         });
 
-        it("shouldn\'t update author info", (done) => {
-            const author = {
-                age: 15
-            };
-            chai.request(app)
-                .put('/api/author/' + tempAuthorId)
-                .set("Authorization", token)
-                .send(author)
-                .end((err, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    done();
-                });
-        });
-
-        it("shouldn\'t update author info", (done) => {
+        it("should update author info", (done) => {
             const author = {
                 name: "Husne Ara UPDATED"
             };
@@ -182,13 +182,13 @@ describe('AUTHOR', () => {
                 .set("Authorization", token)
                 .send(author)
                 .end((err, res) => {
-                    res.should.have.status(400);
+                    res.should.have.status(200);
                     res.body.should.be.a('object');
                     done();
                 });
         });
 
-        it("should update author info", (done) => {
+        it("shouldn't update author info", (done) => {
             const author = {
                 name: "Husne Ara UPDATED",
                 age: -15
@@ -204,7 +204,7 @@ describe('AUTHOR', () => {
                 });
         });
 
-        it("should update author info", (done) => {
+        it("shouldn't update author info", (done) => {
             const author = {
                 name: "Husne Ara UPDATED",
                 age: 15

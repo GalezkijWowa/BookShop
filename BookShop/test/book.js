@@ -56,7 +56,7 @@ describe('BOOK', () => {
             done();
         });
 
-        it('it sould post the book info', (done) => {
+        it('it should post the book info', (done) => {
             const book = {
                 title: "Magica",
                 cost: 10

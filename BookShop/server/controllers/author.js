@@ -34,8 +34,8 @@ function add(req, res) {
 }
 
 function update(req, res) {
-    if (!req.body.age || req.body.age < 0) res.status(400).send({
-        message: "Age undefined or less then 0",
+    if (req.body.age !== undefined && req.body.age < 0) res.status(400).send({
+        message: "age less then 0",
     });
     else {
         return authorService
@@ -46,8 +46,11 @@ function update(req, res) {
                         message: "Author Not Found",
                     });
                 }
+                let tempName = req.body.name ? req.body.name : author.name;
+                let tempAge = req.body.age ? req.body.age : author.age;
+
                 return authorService
-                    .update(author, req.body.name, req.body.age)
+                    .update(author, tempName, tempAge)
                     .then(() => res.status(200).send(author))
                     .catch((error) => res.status(400).send(error));
             })
