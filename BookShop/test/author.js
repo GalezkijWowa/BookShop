@@ -50,8 +50,10 @@ describe('AUTHOR', () => {
         afterEach((done) => {
             authorService.findById(tempAuthorId)
                 .then((author) => {
-                    authorService.destroy(author)
-                        .then(() => { });
+                    if (author) {
+                        authorService.destroy(author)
+                            .then(() => { });
+                    }
                 });
             done();
         });
@@ -136,8 +138,10 @@ describe('AUTHOR', () => {
         afterEach((done) => {
             authorService.findById(tempAuthorId)
                 .then((author) => {
-                    authorService.destroy(author)
-                        .then(() => { });
+                    if (author) {
+                        authorService.destroy(author)
+                            .then(() => { });
+                    }
                 });
             done();
         });
@@ -234,8 +238,10 @@ describe('AUTHOR', () => {
         afterEach((done) => {
             authorService.findById(tempAuthorId)
                 .then((author) => {
-                    authorService.destroy(author)
-                        .then(() => { });
+                    if (author) {
+                        authorService.destroy(author)
+                            .then(() => { });
+                    }
                 });
             done();
         });
@@ -274,8 +280,10 @@ describe('AUTHOR', () => {
         afterEach((done) => {
             authorService.findById(tempAuthorId)
                 .then((author) => {
-                    authorService.destroy(author)
-                        .then(() => { });
+                    if (author) {
+                        authorService.destroy(author)
+                            .then(() => { });
+                    }
                 });
             done();
         });

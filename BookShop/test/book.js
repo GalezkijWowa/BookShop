@@ -50,8 +50,10 @@ describe('BOOK', () => {
         afterEach((done) => {
             bookService.findById(tempBookId)
                 .then((book) => {
-                    bookService.destroy(book)
-                        .then(() => { });
+                    if (book) {
+                        bookService.destroy(book)
+                            .then(() => { });
+                    }
                 });
             done();
         });
@@ -136,8 +138,10 @@ describe('BOOK', () => {
         afterEach((done) => {
             bookService.findById(tempBookId)
                 .then((book) => {
-                    bookService.destroy(book)
-                        .then(() => { });
+                    if (book) {
+                        bookService.destroy(book)
+                            .then(() => { });
+                    }
                 });
             done();
         });
@@ -255,8 +259,10 @@ describe('BOOK', () => {
         afterEach((done) => {
             bookService.findById(tempBookId)
                 .then((book) => {
-                    bookService.destroy(book)
-                        .then(() => { });
+                    if (book) {
+                        bookService.destroy(book)
+                            .then(() => { });
+                    }
                 });
             done();
         });

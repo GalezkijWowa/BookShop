@@ -59,8 +59,10 @@ describe('PAGE', () => {
         afterEach((done) => {
             pageService.findById(pageId)
                 .then((page) => {
-                    pageService.destroy(page)
-                        .then(() => { });
+                    if (page) {
+                        pageService.destroy(page)
+                            .then(() => { });
+                    }
                 });
             bookService.destroy(tempBook)
                 .then(() => {});
