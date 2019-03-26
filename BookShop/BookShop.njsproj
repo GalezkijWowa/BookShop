@@ -103,10 +103,22 @@
     <Compile Include="test\author.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="test\authorService.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\authService.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test\book.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="test\bookService.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test\page.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test\pageService.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include=".sequelizerc">

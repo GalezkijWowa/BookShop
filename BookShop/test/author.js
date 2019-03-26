@@ -7,7 +7,6 @@ const authorService = require("../server/services/authorService");
 const authService = require("../server/services/authService");
 const config = require("../server/config");
 
-
 describe('AUTHOR', () => {
     let token;
     before((done) => {
